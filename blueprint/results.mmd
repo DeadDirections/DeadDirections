@@ -1,0 +1,192 @@
+%% Ledger-row dependency graph for proofs/COVERAGE.md.
+%% An arrow from A to B means a declaration listed on row A invokes a declaration
+%% listed on row B, or row A's note names row B as the row carrying that input.
+%% Node colour is the ledger status: full = every clause machine-checked at or
+%% beyond the paper scope; partial = some clauses machine-checked, with the row
+%% note naming what is assumed and what the model scope is; out = no
+%% formalisation planned.
+%% 59 rows, 99 edges.
+graph LR
+  subgraph Rate_calculus_and_worked_anchors["Rate calculus and worked anchors"]
+    thm_fisher_decay["thm:fisher_decay"]
+    cor_fisher_structure["cor:fisher_structure"]
+    Gaussian_location_anchor["Gaussian location anchor"]
+    Mixture_weight_boundary["Mixture weight boundary"]
+    Bridge_invariant_on_the_mixture_curve["Bridge invariant on the mixture curve"]
+  end
+  subgraph Bridge_channels["Bridge channels"]
+    thm_bridge["thm:bridge"]
+    cor_a_g_duality["cor:a_g_duality"]
+    prop_swiglu_rate["prop:swiglu_rate"]
+    thm_bridge_bias["thm:bridge_bias"]
+    thm_bridge_rect["thm:bridge_rect"]
+    thm_bridge_multi["thm:bridge_multi"]
+    cor_bridge_g2["cor:bridge_g2"]
+    cor_bridge_g3["cor:bridge_g3"]
+    cor_bridge_g7["cor:bridge_g7"]
+    prop_bridge_linear_rot["prop:bridge_linear_rot"]
+    prop_bridge_nonlinear_rot_negative["prop:bridge_nonlinear_rot_negative"]
+    cor_bridge_near_canonical["cor:bridge_near_canonical"]
+    thm_bridge_ce["thm:bridge_ce"]
+    thm_bridge_composition["thm:bridge_composition"]
+    cor_composition_reduces["cor:composition_reduces"]
+    cor_composition_reduces_sub["cor:composition_reduces_sub"]
+    cor_composition_heterogeneous["cor:composition_heterogeneous"]
+  end
+  subgraph Attention["Attention"]
+    thm_bridge_attn["thm:bridge_attn"]
+    thm_bridge_attn_backward["thm:bridge_attn_backward"]
+    prop_attn_chain_softmax["prop:attn_chain_softmax"]
+    cor_g10_composition["cor:g10_composition"]
+    cor_g10_via_composition["cor:g10_via_composition"]
+    prop_attn_VO_invariant["prop:attn_VO_invariant"]
+  end
+  subgraph Residual_and_DAG["Residual and DAG"]
+    thm_bridge_res["thm:bridge_res"]
+    cor_res_all["cor:res_all"]
+    cor_res_ff["cor:res_ff"]
+    cor_res_block["cor:res_block"]
+    cor_res_lambda_min["cor:res_lambda_min"]
+    cor_sigma_min_res["cor:sigma-min-res"]
+    cor_sigma_min_res_all["cor:sigma-min-res-all"]
+    cor_sigma_min_res_g5["cor:sigma_min_res_g5"]
+  end
+  subgraph LayerNorm["LayerNorm"]
+    prop_ln_kernel["prop:ln_kernel"]
+    prop_rmsnorm_no_kernel["prop:rmsnorm_no_kernel"]
+    thm_bridge_ln["thm:bridge_ln"]
+    thm_ln_finite_t_mlp["thm:ln_finite_t_mlp"]
+  end
+  subgraph Volume_and_RLCT["Volume and RLCT"]
+    thm_selection_rule["thm:selection_rule"]
+    thm_multi_component_rates["thm:multi_component_rates"]
+    prop_volume_multi["prop:volume_multi"]
+    thm_nu_universality["thm:nu_universality"]
+    prop_determinantal_resolution["prop:determinantal_resolution"]
+  end
+  subgraph Curvature["Curvature"]
+    prop_curvature_rate["prop:curvature_rate"]
+    cor_volume["cor:volume"]
+  end
+  subgraph Quotient_and_gauge["Quotient and gauge"]
+    prop_ddcadam_equivariance["prop:ddcadam_equivariance"]
+    cor_quotient_rate["cor:quotient_rate"]
+    cor_sgd_quotient["cor:sgd_quotient"]
+    cor_ddcadam_quotient_rate["cor:ddcadam_quotient_rate"]
+    cor_global_rate["cor:global-rate"]
+  end
+  subgraph Estimator_slices["Estimator slices"]
+    cor_sigma_min["cor:sigma-min"]
+    thm_multilayer_A["thm:multilayer-A"]
+    cor_rect_lambda_min["cor:rect_lambda_min"]
+    cor_rect_product_sigma_min["cor:rect_product_sigma_min"]
+    cor_kfac_lift["cor:kfac_lift"]
+    prop_task_expansion_gfactor["prop:task_expansion_gfactor"]
+    cor_emp_vs_exp_ce["cor:emp_vs_exp_ce"]
+  end
+
+  Bridge_invariant_on_the_mixture_curve --> Gaussian_location_anchor
+  Bridge_invariant_on_the_mixture_curve --> thm_fisher_decay
+  Gaussian_location_anchor --> thm_fisher_decay
+  cor_a_g_duality --> thm_bridge
+  cor_a_g_duality --> thm_fisher_decay
+  cor_bridge_g2 --> cor_bridge_g3
+  cor_bridge_g2 --> thm_bridge_multi
+  cor_bridge_g2 --> thm_fisher_decay
+  cor_bridge_g3 --> thm_bridge_multi
+  cor_bridge_g3 --> thm_fisher_decay
+  cor_bridge_g7 --> cor_bridge_g2
+  cor_bridge_g7 --> cor_bridge_g3
+  cor_bridge_g7 --> thm_bridge_multi
+  cor_bridge_near_canonical --> prop_bridge_nonlinear_rot_negative
+  cor_bridge_near_canonical --> thm_fisher_decay
+  cor_composition_heterogeneous --> thm_bridge_composition
+  cor_composition_heterogeneous --> thm_fisher_decay
+  cor_composition_reduces --> cor_composition_heterogeneous
+  cor_composition_reduces --> thm_bridge_composition
+  cor_composition_reduces --> thm_fisher_decay
+  cor_composition_reduces_sub --> cor_composition_heterogeneous
+  cor_composition_reduces_sub --> thm_bridge_composition
+  cor_composition_reduces_sub --> thm_fisher_decay
+  cor_ddcadam_quotient_rate --> cor_quotient_rate
+  cor_ddcadam_quotient_rate --> prop_ddcadam_equivariance
+  cor_emp_vs_exp_ce --> thm_bridge_ce
+  cor_g10_composition --> cor_composition_heterogeneous
+  cor_g10_composition --> prop_attn_chain_softmax
+  cor_g10_composition --> thm_bridge_composition
+  cor_g10_composition --> thm_fisher_decay
+  cor_g10_via_composition --> cor_composition_reduces
+  cor_g10_via_composition --> thm_bridge_composition
+  cor_global_rate --> cor_kfac_lift
+  cor_global_rate --> cor_quotient_rate
+  cor_global_rate --> thm_fisher_decay
+  cor_kfac_lift --> thm_multilayer_A
+  cor_quotient_rate --> thm_fisher_decay
+  cor_rect_lambda_min --> cor_bridge_g3
+  cor_rect_lambda_min --> prop_task_expansion_gfactor
+  cor_rect_lambda_min --> thm_bridge_multi
+  cor_rect_product_sigma_min --> thm_bridge
+  cor_res_all --> thm_bridge_res
+  cor_res_all --> thm_fisher_decay
+  cor_res_block --> thm_bridge_res
+  cor_res_ff --> thm_bridge_res
+  cor_res_ff --> thm_fisher_decay
+  cor_res_lambda_min --> cor_rect_lambda_min
+  cor_res_lambda_min --> thm_bridge_res
+  cor_sgd_quotient --> cor_quotient_rate
+  cor_sigma_min --> cor_a_g_duality
+  cor_sigma_min --> cor_rect_product_sigma_min
+  cor_sigma_min --> thm_bridge_multi
+  cor_sigma_min_res --> thm_bridge_res
+  cor_sigma_min_res_all --> cor_res_all
+  cor_sigma_min_res_all --> cor_sigma_min
+  cor_sigma_min_res_all --> cor_sigma_min_res
+  cor_sigma_min_res_all --> thm_fisher_decay
+  cor_sigma_min_res_g5 --> cor_sigma_min
+  cor_sigma_min_res_g5 --> prop_ln_kernel
+  cor_sigma_min_res_g5 --> thm_bridge_multi
+  cor_sigma_min_res_g5 --> thm_bridge_res
+  cor_sigma_min_res_g5 --> thm_fisher_decay
+  cor_volume --> prop_curvature_rate
+  prop_attn_VO_invariant --> thm_fisher_decay
+  prop_attn_chain_softmax --> thm_bridge_attn
+  prop_attn_chain_softmax --> thm_fisher_decay
+  prop_bridge_linear_rot --> thm_fisher_decay
+  prop_bridge_nonlinear_rot_negative --> thm_fisher_decay
+  prop_curvature_rate --> cor_fisher_structure
+  prop_curvature_rate --> thm_fisher_decay
+  prop_ln_kernel --> prop_rmsnorm_no_kernel
+  prop_swiglu_rate --> thm_fisher_decay
+  prop_task_expansion_gfactor --> cor_fisher_structure
+  prop_volume_multi --> thm_selection_rule
+  thm_bridge --> cor_bridge_g2
+  thm_bridge --> thm_fisher_decay
+  thm_bridge_attn --> prop_attn_chain_softmax
+  thm_bridge_attn --> thm_fisher_decay
+  thm_bridge_attn_backward --> prop_attn_chain_softmax
+  thm_bridge_attn_backward --> thm_fisher_decay
+  thm_bridge_bias --> thm_bridge_ce
+  thm_bridge_bias --> thm_fisher_decay
+  thm_bridge_ce --> thm_bridge
+  thm_bridge_ce --> thm_bridge_composition
+  thm_bridge_composition --> thm_fisher_decay
+  thm_bridge_multi --> cor_bridge_g2
+  thm_bridge_multi --> cor_bridge_g3
+  thm_bridge_multi --> thm_fisher_decay
+  thm_bridge_rect --> thm_bridge
+  thm_bridge_rect --> thm_bridge_bias
+  thm_bridge_res --> thm_fisher_decay
+  thm_ln_finite_t_mlp --> prop_bridge_nonlinear_rot_negative
+  thm_ln_finite_t_mlp --> thm_fisher_decay
+  prop_determinantal_resolution --> thm_multi_component_rates
+  thm_multi_component_rates --> prop_volume_multi
+  thm_multi_component_rates --> thm_selection_rule
+  thm_multilayer_A --> cor_sigma_min
+  thm_selection_rule --> cor_fisher_structure
+  thm_selection_rule --> thm_fisher_decay
+
+  classDef full fill:#dcfce7,stroke:#15803d,stroke-width:2px,color:#052e16;
+  classDef partial fill:#fef3c7,stroke:#b45309,stroke-width:2px,color:#451a03;
+  classDef out fill:#e7e5e4,stroke:#78716c,stroke-width:1px,color:#1c1917,stroke-dasharray:4 3;
+  class thm_fisher_decay,prop_ddcadam_equivariance,cor_a_g_duality,prop_ln_kernel,prop_rmsnorm_no_kernel,prop_swiglu_rate,cor_bridge_g3,cor_composition_heterogeneous,cor_composition_reduces,cor_composition_reduces_sub,cor_g10_composition,cor_res_all,cor_res_ff,prop_bridge_linear_rot,Gaussian_location_anchor,Mixture_weight_boundary,Bridge_invariant_on_the_mixture_curve full;
+  class thm_bridge,thm_bridge_composition,thm_selection_rule,thm_multi_component_rates,prop_volume_multi,prop_curvature_rate,cor_volume,thm_bridge_rect,cor_rect_lambda_min,cor_rect_product_sigma_min,thm_bridge_multi,cor_bridge_g2,cor_bridge_g7,thm_bridge_bias,thm_bridge_ce,thm_bridge_ln,prop_attn_VO_invariant,prop_bridge_nonlinear_rot_negative,cor_g10_via_composition,thm_bridge_res,cor_res_block,cor_res_lambda_min,cor_sigma_min,cor_sigma_min_res,cor_sigma_min_res_all,cor_sigma_min_res_g5,thm_multilayer_A,thm_bridge_attn,thm_bridge_attn_backward,prop_attn_chain_softmax,cor_bridge_near_canonical,cor_kfac_lift,thm_ln_finite_t_mlp,cor_emp_vs_exp_ce,cor_fisher_structure,cor_global_rate,prop_task_expansion_gfactor,cor_quotient_rate,cor_sgd_quotient,cor_ddcadam_quotient_rate,thm_nu_universality,prop_determinantal_resolution partial;
