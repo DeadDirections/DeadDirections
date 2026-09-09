@@ -32,5 +32,5 @@ One module per paper result cluster, imported by `DeadDirections.lean`:
 ## Provenance
 
 These sources are the ancillary files of arXiv:2606.05957v2 (tag
-`theory-arxiv-v2` of the paper's repository, commit `6823784c8`). The
+`theory-arxiv-v2` of the paper's repository, commit `e777ef557`). The
 DualConnections modules of the companion spoke are not included here.
